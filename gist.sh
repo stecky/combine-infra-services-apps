@@ -31,24 +31,15 @@ cd combine-infra-services-apps
 # Setup: Controller Cluster #
 #############################
 
-export KUBECONFIG=$PWD/kubeconfig.yaml
-
 # Feel free to use any other Kubernetes cluster
 kind create cluster --config kind.yaml
 
 # NGINX Ingress installation might differ for your k8s provider
-kubectl apply \
-    --filename https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+
 
 # If not using kind, replace `127.0.0.1.xip.io` with the base host accessible through NGINX Ingress
 export BASE_HOST=127.0.0.1.xip.io
-
-########################
-# Setup: Deploy ArgoCD #
-########################
-
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 ############################
 # Setup: Deploy Crossplane #
@@ -73,71 +64,12 @@ helm upgrade --install \
 
 kubectl crossplane install provider crossplane/provider-aws:v0.17.0
 
-curl -O https://raw.githubusercontent.com/crossplane/crossplane/master/docs/snippets/configure/aws/providerconfig.yaml
-kubectl apply -f providerconfig.yaml
+kubectl apply -f https://raw.githubusercontent.com/crossplane/crossplane/master/docs/snippets/configure/aws/providerconfig.yaml
 
-curl -O https://raw.githubusercontent.com/crossplane/crossplane/master/docs/snippets/configure/aws/setup.sh
-./setup.sh
+curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/docs/snippets/configure/aws/setup.sh | sh && rm setup.sh
 
-##############
-# Setup: GCP #
-##############
-
-export PROJECT_ID=devops-toolkit-$(date +%Y%m%d%H%M%S)
-
-gcloud projects create $PROJECT_ID
-
-echo https://console.cloud.google.com/marketplace/product/google/container.googleapis.com?project=$PROJECT_ID
-
-# Open the URL and *ENABLE* the API
-
-echo https://console.developers.google.com/apis/library/sqladmin.googleapis.com?project=$PROJECT_ID
-
-# Open the URL and *ENABLE* the API
-
-export SA_NAME=devops-toolkit
-
-export SA="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
-
-gcloud iam service-accounts \
-    create $SA_NAME \
-    --project $PROJECT_ID
-
-export ROLE=roles/admin
-
-gcloud projects add-iam-policy-binding \
-    --role $ROLE $PROJECT_ID \
-    --member serviceAccount:$SA
-
-gcloud iam service-accounts keys \
-    create creds.json \
-    --project $PROJECT_ID \
-    --iam-account $SA
-
-kubectl --namespace crossplane-system \
-    create secret generic gcp-creds \
-    --from-file key=./creds.json
-
-kubectl crossplane install provider \
-    crossplane/provider-gcp:v0.15.0
-
-kubectl get providers
-
+watch kubectl get providers
 # Repeat the previous command until `HEALTHY` column is set to `True`
-
-echo "apiVersion: gcp.crossplane.io/v1beta1
-kind: ProviderConfig
-metadata:
-  name: default
-spec:
-  projectID: $PROJECT_ID
-  credentials:
-    source: Secret
-    secretRef:
-      namespace: crossplane-system
-      name: gcp-creds
-      key: key" \
-    | kubectl apply --filename -
 
 #########################
 # Setup: Deploy Argo CD #
@@ -153,9 +85,9 @@ cat controller/argo-cd.yaml \
     | sed -e "s@vfarcic@$GH_ORG@g" \
     | tee controller/argo-cd.yaml
 
-cat controller/gke.yaml \
+cat controller/aws.yaml \
     | sed -e "s@vfarcic@$GH_ORG@g" \
-    | tee controller/gke.yaml
+    | tee controller/aws.yaml
 
 cat controller/devops-toolkit.yaml \
     | sed -e "s@vfarcic@$GH_ORG@g" \
