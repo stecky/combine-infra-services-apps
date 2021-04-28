@@ -10,6 +10,7 @@ spec:
     resourcesVpcConfig:
       endpointPublicAccess: false
       endpointPrivateAccess: true
+    roleArn: arn:aws:iam::484346401365:role/eks-cluster-role
     tags:
       Name: steven953
       Owner: "Steven Barnes"
