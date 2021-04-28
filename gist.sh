@@ -71,7 +71,11 @@ helm upgrade --install \
 # Setup: AWS #
 ##############
 
+kubectl crossplane install provider crossplane/provider-aws:v0.17.0
+
 curl -O https://raw.githubusercontent.com/crossplane/crossplane/master/docs/snippets/configure/aws/providerconfig.yaml
+kubectl apply -f providerconfig.yaml
+
 curl -O https://raw.githubusercontent.com/crossplane/crossplane/master/docs/snippets/configure/aws/setup.sh
 ./setup.sh
 

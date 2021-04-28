@@ -1,0 +1,38 @@
+apiVersion: eks.aws.crossplane.io/v1beta1
+kind: Cluster
+metadata:
+  name: steven953
+  labels:
+    example: "true"
+spec:
+  forProvider:
+    region: us-east-1
+    resourcesVpcConfig:
+      endpointPublicAccess: false
+      endpointPrivateAccess: true
+    tags:
+      Name: steven953
+      Owner: "Steven Barnes"
+      Team: "Venue Product Team"
+    version: "1.19"
+
+---
+
+apiVersion: eks.aws.crossplane.io/v1alpha1
+kind: NodeGroup
+metadata:
+  name: steven953-ng-1
+spec:
+  forProvider:
+    region: us-east-1
+    clusterName: steven953
+    diskSize: 80
+    instanceTypes: ["m5.large"]
+    scalingConfig:
+      desiredSize: 1
+      maxSize: 3
+      minSize: 1
+    tags:
+      Name: steven953-ng-1
+      Owner: "Steven Barnes"
+      Team: "Venue Product Team"
