@@ -29,7 +29,8 @@ metadata:
 spec:
   forProvider:
     region: us-east-1
-    clusterName: steven953
+    clusterNameRef:
+      name: steven953
     diskSize: 80
     instanceTypes: ["m5.large"]
     scalingConfig:
