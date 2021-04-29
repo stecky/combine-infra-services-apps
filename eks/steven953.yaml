@@ -32,6 +32,5 @@ metadata:
 spec:
   forProvider:
     region: us-east-1
-    nodeRole: arn:aws:iam::484346401365:role/preprod-eks-worker-nodes-NodeInstanceRole-ERYWTH7QFDV2
     clusterNameRef:
       name: steven953
