@@ -31,13 +31,6 @@ spec:
     region: us-east-1
     clusterNameRef:
       name: steven953
-    diskSize: 80
-    instanceTypes:
-      - m5.large
-    scalingConfig:
-      desiredSize: 1
-      maxSize: 3
-      minSize: 1
     tags:
       Name: steven953-ng-1
       Owner: "Steven Barnes"
