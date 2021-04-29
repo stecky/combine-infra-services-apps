@@ -1,3 +1,4 @@
+---
 apiVersion: eks.aws.crossplane.io/v1beta1
 kind: Cluster
 metadata:
@@ -19,19 +20,3 @@ spec:
       Owner: "Steven Barnes"
       Team: "Venue Product Team"
     version: "1.19"
-
----
-
-apiVersion: eks.aws.crossplane.io/v1alpha1
-kind: NodeGroup
-metadata:
-  name: steven953-ng-1
-spec:
-  forProvider:
-    region: us-east-1
-    clusterNameRef:
-      name: steven953
-    tags:
-      Name: steven953-ng-1
-      Owner: "Steven Barnes"
-      Team: "Venue Product Team"
