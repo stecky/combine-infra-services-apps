@@ -8,6 +8,9 @@ spec:
     clusterNameRef:
       name: steven953
     tags:
-      Name: steven953-ng-1
-      Owner: "Steven Barnes"
-      Team: "Venue Product Team"
+      - key: Name
+        value: steven953-ng-1
+      - key: Owner
+        value: "Steven Barnes"
+      - key: Team
+        value: "Venue Product Team"
