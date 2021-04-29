@@ -32,7 +32,8 @@ spec:
     clusterNameRef:
       name: steven953
     diskSize: 80
-    instanceTypes: ["m5.large"]
+    instanceTypes:
+      - m5.large
     scalingConfig:
       desiredSize: 1
       maxSize: 3
