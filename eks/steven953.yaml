@@ -35,3 +35,10 @@ spec:
     nodeRole: arn:aws:iam::484346401365:role/preprod-eks-worker-nodes-NodeInstanceRole-ERYWTH7QFDV2
     clusterNameRef:
       name: steven953
+    subnets:
+        - subnet-6e952535
+        - subnet-25f94608
+    tags:
+      Name: steven953
+      Owner: "Steven Barnes"
+      Team: "Venue Product Team"
