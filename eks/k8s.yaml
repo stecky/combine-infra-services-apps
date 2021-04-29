@@ -10,6 +10,8 @@ spec:
     resourcesVpcConfig:
       endpointPublicAccess: false
       endpointPrivateAccess: true
+      subnetIds:
+        - subnet-6e952535
     roleArn: arn:aws:iam::484346401365:role/eks-cluster-role
     tags:
       Name: steven953
