@@ -14,8 +14,7 @@ spec:
       subnetIds:
         - subnet-6e952535
         - subnet-25f94608
-    roleArnRef:
-      name: eks-cluster-role
+    roleArn: arn:aws:iam::484346401365:role/eks-cluster-role
     tags:
       Name: steven953
       Owner: "Steven Barnes"
@@ -33,12 +32,9 @@ metadata:
 spec:
   forProvider:
     region: us-east-1
-    nodeRoleRef:
-      name: preprod-eks-worker-nodes-NodeInstanceRole-ERYWTH7QFDV2
+    nodeRole: arn:aws:iam::484346401365:role/preprod-eks-worker-nodes-NodeInstanceRole-ERYWTH7QFDV2
     clusterNameRef:
       name: steven953
-    subnetRefs:
-      name: subnet-6e952535
     tags:
       Name: steven953-ng-1
       Owner: "Steven Barnes"
