@@ -12,6 +12,7 @@ spec:
       endpointPrivateAccess: true
       subnetIds:
         - subnet-6e952535
+        - subnet-25f94608
     roleArn: arn:aws:iam::484346401365:role/eks-cluster-role
     tags:
       Name: steven953
