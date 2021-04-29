@@ -35,7 +35,3 @@ spec:
     nodeRole: arn:aws:iam::484346401365:role/preprod-eks-worker-nodes-NodeInstanceRole-ERYWTH7QFDV2
     clusterNameRef:
       name: steven953
-    tags:
-      Name: steven953-ng-1
-      Owner: "Steven Barnes"
-      Team: "Venue Product Team"
