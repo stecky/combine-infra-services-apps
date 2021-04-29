@@ -16,10 +16,7 @@ spec:
         - subnet-25f94608
     roleArn: arn:aws:iam::484346401365:role/eks-cluster-role
     tags:
-      - key: Name
-        value: steven953
-      - key: Owner
-        value: "Steven Barnes"
-      - key: Team
-        value: "Venue Product Team"
+      Name: steven953
+      Owner: "Steven Barnes"
+      Team: "Venue Product Team"
     version: "1.19"
